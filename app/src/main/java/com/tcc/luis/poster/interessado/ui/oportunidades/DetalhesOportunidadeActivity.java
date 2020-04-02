@@ -26,6 +26,7 @@ import com.tcc.luis.poster.helpers.Constantes;
 import com.tcc.luis.poster.helpers.SnackBarHelper;
 import com.tcc.luis.poster.model.Interessado;
 import com.tcc.luis.poster.model.OportunidadeDeEmprego;
+import com.tcc.luis.poster.model.Usuario;
 
 public class DetalhesOportunidadeActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class DetalhesOportunidadeActivity extends AppCompatActivity {
     private Button mBtnInteresse;
     private OportunidadeDeEmprego oportunidade;
     private ConstraintLayout mLayout;
+    private Usuario actualUser;
 
 
     @Override
@@ -53,32 +55,11 @@ public class DetalhesOportunidadeActivity extends AppCompatActivity {
             this.firebaseFirestorager = FirebaseFirestore.getInstance();
             loadViews();
             getOportunidadeFromApi(oportunidadeId);
+            getCurrentUserFromApi();
             mBtnInteresse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Interessado interessado = new Interessado();
-                    interessado.setIdInteressado(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    interessado.setIdEmpresa(oportunidade.getEmpresaUid());
-                    interessado.setIdOportunidade(oportunidadeId);
-                    if(interessado.getIdEmpresa() != null && interessado.getIdInteressado() != null){
-                        
-                    firebaseFirestorager.collection(Constantes.TABELA_DATABASE_INTERESSADOS).add(interessado)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task) {
-                            if(task.isSuccessful()){
-                                SnackBarHelper.makeWithMensageAndAction(mLayout, "Operação realizada com sucesso", "OK", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        finish();
-                                    }
-                                },true,DetalhesOportunidadeActivity.this);
-                            }
-                        }
-                    });
-                    } else {
-                        Toast.makeText(DetalhesOportunidadeActivity.this, "Nenhuma empresa selecionada", Toast.LENGTH_SHORT).show();
-                    }
+                    enviarParaApi(oportunidadeId);
                 }
             });
 
@@ -86,6 +67,49 @@ public class DetalhesOportunidadeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Ocorreu um erro inesperado, tente mais tarde :(", Toast.LENGTH_SHORT).show();
             finish();
+        }
+    }
+
+    private void getCurrentUserFromApi() {
+        firebaseFirestorager.collection(Constantes.TABELA_DATABASE_USUARIO)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            Usuario usuario = task.getResult().toObject(Usuario.class);
+                            actualUser = usuario;
+                        }
+                    }
+                })
+        ;
+    }
+
+    private void enviarParaApi(String oportunidadeId) {
+        Interessado interessado = new Interessado();
+        interessado.setIdInteressado(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        interessado.setIdEmpresa(oportunidade.getEmpresaUid());
+        interessado.setUsuario(actualUser);
+        interessado.setIdOportunidade(oportunidadeId);
+        if(interessado.getIdEmpresa() != null && interessado.getIdInteressado() != null){
+
+        firebaseFirestorager.collection(Constantes.TABELA_DATABASE_INTERESSADOS).add(interessado)
+        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                if(task.isSuccessful()){
+                    SnackBarHelper.makeWithMensageAndAction(mLayout, "Operação realizada com sucesso", "OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                        }
+                    },true, DetalhesOportunidadeActivity.this);
+                }
+            }
+        });
+        } else {
+            Toast.makeText(DetalhesOportunidadeActivity.this, "Nenhuma empresa selecionada", Toast.LENGTH_SHORT).show();
         }
     }
 

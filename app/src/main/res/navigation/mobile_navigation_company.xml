@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_oportunidades"
-        android:name="com.tcc.luis.poster.empresa.ui.home.HomeFragment"
+        android:name="com.tcc.luis.poster.empresa.ui.curriculos.CurriculoFragment"
         android:label="Curriculos"
-        tools:layout="@layout/fragment_home_company" />
+        tools:layout="@layout/fragment_dashboard_company" />
 
     <fragment
         android:id="@+id/navigation_intereseds"
-        android:name="com.tcc.luis.poster.empresa.ui.curriculos.CurriculoFragment"
+        android:name="com.tcc.luis.poster.empresa.ui.interessados.MeusInteressadosFragment"
         android:label="Interessados"
-        tools:layout="@layout/fragment_dashboard_company" />
+        tools:layout="@layout/fragment_meus_interessados" />
 
     <fragment
         android:id="@+id/navigation_my_company"
