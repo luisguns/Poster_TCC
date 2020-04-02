@@ -115,7 +115,6 @@ public class MeuPerfilFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initViews();
         new Thread(new Runnable() {
             @Override
             public void run() {
