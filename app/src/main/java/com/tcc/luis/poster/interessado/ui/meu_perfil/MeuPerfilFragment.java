@@ -49,6 +49,9 @@ import com.tcc.luis.poster.model.ExperienciaProfissional;
 import com.tcc.luis.poster.model.FormacaoAcademica;
 import com.tcc.luis.poster.model.Usuario;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MeuPerfilFragment extends Fragment {
@@ -67,18 +70,25 @@ public class MeuPerfilFragment extends Fragment {
     private TextView mTxtEmail;
     private ImageView mImgPerfil;
 
+    private String actualUser;
+
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth firebaseAuth;
     private Curriculo curriculo;
     private ProgressBar mProgressImgPerfil;
 
-    private CardView mCvMostrarMaisFormacoes;
     private RecyclerView mRvCompetencias;
     private RecyclerView mRvFormacoes;
     private RecyclerView mRvExperiencias;
-    private CardView mCvMostrarMaisCompetencias;
-    private CardView mCvMostrarMaisExperiencias;
+    private List<View> ownerViews;
     private Activity activity;
+    private TextView mTxtVerMaisFormacao;
+    private TextView mTxtVerMaisCompetencia;
+    private TextView mTxtVerMaisExperiencia;
+
+    public MeuPerfilFragment(){
+        ownerViews = new ArrayList<>();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,20 +96,32 @@ public class MeuPerfilFragment extends Fragment {
         setHasOptionsMenu(true);
         initViews(v);
         aplyListens();
+        Bundle bd = getArguments();
+        if (bd != null) {
+            String interessadoKey = bd.getString(Constantes.INTERESSADO_KEY);
+            if(interessadoKey != null){
+                actualUser = interessadoKey;
+                dimissAllViews(ownerViews);
+            } else {
+                actualUser = firebaseAuth.getCurrentUser().getUid();
+            }
 
+        } else {
+            actualUser = firebaseAuth.getCurrentUser().getUid();
+        }
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initViews();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 findUser();
             }
         }).start();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -110,42 +132,49 @@ public class MeuPerfilFragment extends Fragment {
 
     private void loadUserUi(Usuario usuario) {
         String name = "";
-        if(usuario.getName() != null){
+        if (usuario.getName() != null) {
             name = name + usuario.getName();
         }
 
-        if(usuario.getLastName() != null){
-            name = name + " " +usuario.getLastName();
+        if (usuario.getLastName() != null) {
+            name = name + " " + usuario.getLastName();
         }
 
-        if(usuario.getSobre() != null){
+        if (usuario.getSobre() != null) {
             mTxtSobre.setText(usuario.getSobre());
         }
 
-        if(usuario.getOcupacao() != null && !usuario.getOcupacao().isEmpty()){
+        if (usuario.getOcupacao() != null && !usuario.getOcupacao().isEmpty()) {
             mTxtOcupacao.setText(usuario.getOcupacao());
         }
         mTxtName.setText(name);
 
-        if(!usuario.getProfileImage().isEmpty()){
-            loadImage(usuario.getProfileImage(),mImgPerfil);
+        if (!usuario.getProfileImage().isEmpty()) {
+            loadImage(usuario.getProfileImage(), mImgPerfil);
         }
 
-        if(usuario.getEmail() != null){
+        if (usuario.getEmail() != null) {
             mTxtEmail.setText("Email: " + usuario.getEmail());
+        }
+    }
+
+    private void dimissAllViews(List<View> views){
+        for (View view: views
+             ) {
+            view.setVisibility(View.GONE);
         }
     }
 
 
     private void loadImage(String url, final ImageView img) {
         Picasso.with(activity).load(url).networkPolicy(NetworkPolicy.OFFLINE).resize(80, 80)
-                .resize(512,512).centerCrop().into(img, new Callback() {
+                .resize(512, 512).centerCrop().into(img, new Callback() {
             @Override
             public void onSuccess() {
                 Bitmap imageBitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
                 RoundedBitmapDrawable imageDrawable = ImageHelper.makeRoundDrawer(imageBitmap, getResources());
                 img.setImageDrawable(imageDrawable);
-                ProgressHelper.show(mProgressImgPerfil,null,false);
+                ProgressHelper.show(mProgressImgPerfil, null, false);
             }
 
             @Override
@@ -158,14 +187,14 @@ public class MeuPerfilFragment extends Fragment {
 
 
     private void findUser() {
-        ProgressHelper.show(mProgressImgPerfil,null,true);
+        ProgressHelper.show(mProgressImgPerfil, null, true);
         firebaseFirestore.collection(Constantes.TABELA_DATABASE_USUARIO)
-                .document(firebaseAuth.getCurrentUser().getUid())
+                .document(actualUser)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Usuario usuario = task.getResult().toObject(Usuario.class);
                             loadUserUi(usuario);
                         }
@@ -174,14 +203,14 @@ public class MeuPerfilFragment extends Fragment {
     }
 
     private void findCurriculo() {
-        ProgressHelper.show(mProgressGeral,mContainerViews,true);
-        firebaseFirestore.collection(Constantes.TABELA_DATABASE_CURRICULO).document(firebaseAuth.getCurrentUser().getUid())
+        ProgressHelper.show(mProgressGeral, mContainerViews, true);
+        firebaseFirestore.collection(Constantes.TABELA_DATABASE_CURRICULO).document(actualUser)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     curriculo = task.getResult().toObject(Curriculo.class);
-                    if(curriculo != null){
+                    if (curriculo != null) {
                         loadViewsWIthCurriculo();
                     }
 
@@ -194,27 +223,33 @@ public class MeuPerfilFragment extends Fragment {
         List<FormacaoAcademica> formacoesAcademicas = curriculo.getFormacoesAcademicas();
         List<Competencia> competencias = curriculo.getCompetencias();
         List<ExperienciaProfissional> experiencias = curriculo.getExperienciasProfissionais();
-        if(formacoesAcademicas != null){
+        if (formacoesAcademicas != null) {
             loadRecyclerViewFormacoes(formacoesAcademicas);
+        } else {
+            mRvFormacoes.setVisibility(View.GONE);
         }
-        if( competencias != null){
+        if (competencias != null) {
             loadRecyclerViewCompetencias(competencias);
+        } else {
+            mRvCompetencias.setVisibility(View.GONE);
         }
-
-        if( experiencias != null){
+        if (experiencias != null) {
             loadRecyclerViewExperiencia(experiencias);
+        } else {
+            mRvExperiencias.setVisibility(View.GONE);
         }
 
-        ProgressHelper.show(mProgressGeral,mContainerViews,false);
+        ProgressHelper.show(mProgressGeral, mContainerViews, false);
 
     }
 
     private void loadRecyclerViewExperiencia(List<ExperienciaProfissional> experiencias) {
-        if(experiencias.size() > 3 ){
-            mCvMostrarMaisExperiencias.setVisibility(View.VISIBLE);
+        if (experiencias.size() > 3) {
+            mTxtVerMaisExperiencia.setVisibility(View.VISIBLE);
+
         }
 
-        ExperienciaProfissionalAdapter adapter = new ExperienciaProfissionalAdapter(experiencias,getActivity(), false);
+        ExperienciaProfissionalAdapter adapter = new ExperienciaProfissionalAdapter(experiencias, getActivity(), false);
         mRvExperiencias.setAdapter(adapter);
         mRvExperiencias.setNestedScrollingEnabled(false);
 
@@ -222,19 +257,20 @@ public class MeuPerfilFragment extends Fragment {
     }
 
     private void loadRecyclerViewCompetencias(List<Competencia> competencias) {
-        if(competencias.size() > 3 ){
-            mCvMostrarMaisCompetencias.setVisibility(View.VISIBLE);
+        if (competencias.size() > 3) {
+            mTxtVerMaisCompetencia.setVisibility(View.VISIBLE);
+
         }
-        CompetenciasAdapter adapter = new CompetenciasAdapter(competencias,getActivity(), false);
+        CompetenciasAdapter adapter = new CompetenciasAdapter(competencias, getActivity(), false);
         mRvCompetencias.setAdapter(adapter);
         mRvCompetencias.setNestedScrollingEnabled(false);
     }
 
     private void loadRecyclerViewFormacoes(List<FormacaoAcademica> formacoesAcademicas) {
-        if(formacoesAcademicas.size() > 3 ){
-            mCvMostrarMaisFormacoes.setVisibility(View.VISIBLE);
+        if (formacoesAcademicas.size() > 3) {
+            mTxtVerMaisFormacao.setVisibility(View.VISIBLE);
         }
-        FormacoesAcademicasAdapter adapter = new FormacoesAcademicasAdapter(formacoesAcademicas,getActivity(), false);
+        FormacoesAcademicasAdapter adapter = new FormacoesAcademicasAdapter(formacoesAcademicas, getActivity(), false);
         mRvFormacoes.setAdapter(adapter);
         mRvFormacoes.setNestedScrollingEnabled(false);
     }
@@ -278,15 +314,19 @@ public class MeuPerfilFragment extends Fragment {
         mImgEditAcademic = v.findViewById(R.id.meu_perfil_interessado_img_edit_formacao);
         mImgEditCompetencia = v.findViewById(R.id.meu_perfil_interessado_img_edit_competencias);
         mImgEditExperiencia = v.findViewById(R.id.meu_perfil_interessado_img_edit_experiencia);
-        mImgEditPerfil= v.findViewById(R.id.meu_perfil_interessado_img_edit_perfil);
+        mImgEditPerfil = v.findViewById(R.id.meu_perfil_interessado_img_edit_perfil);
+
+        mTxtVerMaisFormacao = v.findViewById(R.id.meu_perfil_formacao_ver_mais_label);
+        mTxtVerMaisCompetencia = v.findViewById(R.id.meu_perfil_competencia_ver_mais);
+        mTxtVerMaisExperiencia = v.findViewById(R.id.meu_perfil_experiencia_ver_mais);
+
+        ownerViews.addAll(Arrays.asList(mImgEditAcademic,mImgEditCompetencia, mImgEditExperiencia,mImgEditPerfil));
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         activity = getActivity();
         mProgressImgPerfil = v.findViewById(R.id.meu_perfil_progress_image);
 
-        mCvMostrarMaisFormacoes = v.findViewById(R.id.meu_perfil_formacao_ver_mais);
-        mCvMostrarMaisCompetencias = v.findViewById(R.id.meu_perfil_competencia_ver_mais);
-        mCvMostrarMaisExperiencias = v.findViewById(R.id.meu_perfil_experiencia_ver_mais);
         mRvFormacoes = v.findViewById(R.id.meu_perfil_rv_formacoes_academicas);
         mRvCompetencias = v.findViewById(R.id.meu_perfil_rv_competencias);
         mRvExperiencias = v.findViewById(R.id.meu_perfil_container_rv_experiencias);
@@ -312,13 +352,13 @@ public class MeuPerfilFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.option_menu_company,menu);
+        inflater.inflate(R.menu.option_menu_company, menu);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_exit_company:
                 CountHelper.logout(getActivity());
                 return true;

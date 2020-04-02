@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/round_logo_officioal"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".interessado.ui.oportunidades.DetalhesOportunidadeActivity"></activity>
+        <activity android:name=".empresa.ui.interessados.DetalhesInteressadoActivity"></activity>
+        <activity android:name=".interessado.ui.oportunidades.DetalhesOportunidadeActivity" />
         <activity android:name=".empresa.ui.minha_empresa.ui.EditEmpresaActivity" />
         <activity android:name=".interessado.ui.meu_perfil.ui.EditaPerfilActivity" />
         <activity android:name=".interessado.ui.meu_perfil.ui.experiencia.NovaExperienciaProfissionalActivity" />

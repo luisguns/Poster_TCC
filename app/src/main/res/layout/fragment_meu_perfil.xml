@@ -157,28 +157,22 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/meu_perfil_rv_formacoes_academicas"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:visibility="gone"
-                    android:id="@+id/meu_perfil_formacao_ver_mais"
-                    android:layout_width="match_parent"
-                    android:layout_below="@id/meu_perfil_container_rv_formacoes"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/meu_perfil_formacao_ver_mais_label"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/meu_perfil_container_rv_formacoes"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
                         android:text="Veja mais"
+                        android:visibility="gone"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textAlignment="center"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
-                </androidx.cardview.widget.CardView>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
@@ -226,24 +220,19 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:visibility="gone"
-                    android:id="@+id/meu_perfil_competencia_ver_mais"
-                    android:layout_width="match_parent"
-                    android:layout_below="@id/meu_perfil_container_rv_competencia"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/meu_perfil_competencia_ver_mais"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_height="wrap_content"
                         android:text="Veja mais"
+                        android:gravity="center_horizontal"
+                        android:layout_below="@+id/meu_perfil_container_rv_competencia"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textAlignment="center"
                         android:textSize="16sp"/>
 
-                </androidx.cardview.widget.CardView>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
@@ -292,25 +281,18 @@
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
 
-
-                <androidx.cardview.widget.CardView
-                    android:visibility="gone"
-                    android:id="@+id/meu_perfil_experiencia_ver_mais"
-                    android:layout_width="match_parent"
-                    android:layout_below="@id/meu_perfil_container_layout_rv_experiencias"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="wrap_content">
-
                     <TextView
+                        android:id="@+id/meu_perfil_experiencia_ver_mais"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_height="wrap_content"
                         android:text="Veja mais"
+                        android:gravity="center_horizontal"
+                        android:layout_below="@+id/meu_perfil_container_layout_rv_experiencias"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textAlignment="center"
                         android:textSize="16sp"/>
 
-                </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

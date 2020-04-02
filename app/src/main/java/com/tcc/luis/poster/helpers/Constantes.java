@@ -10,4 +10,5 @@ public class Constantes {
     public static final String TABELA_DATABASE_CURRICULO = "curriculo";
     public static final String OPORTUNIDADE_KEY = "oportunidade_key";
     public static final String TABELA_DATABASE_INTERESSADOS = "interessado";
+    public static final String INTERESSADO_KEY = "interessado_key";
 }
