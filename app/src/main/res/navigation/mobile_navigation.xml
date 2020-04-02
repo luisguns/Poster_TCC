@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_oportunidades">
+
+    <fragment
+        android:id="@+id/navigation_oportunidades"
+        android:name="com.tcc.luis.poster.interessado.ui.oportunidades.OportunidadesFragment"
+        android:label="Vagas"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.tcc.luis.poster.interessado.ui.dashboard.DashboardFragment"
+        android:label="Notificações"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.tcc.luis.poster.interessado.ui.meu_perfil.MeuPerfilFragment"
+        android:label="Meu perfil"
+        tools:layout="@layout/fragment_meu_perfil" />
+</navigation>

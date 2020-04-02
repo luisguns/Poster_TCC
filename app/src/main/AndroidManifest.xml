@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tcc.luis.poster">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/retangule_logo_com_bordas"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/round_logo_officioal"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".interessado.ui.oportunidades.DetalhesOportunidadeActivity"></activity>
+        <activity android:name=".empresa.ui.minha_empresa.ui.EditEmpresaActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.EditaPerfilActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.experiencia.NovaExperienciaProfissionalActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.experiencia.ExperienciaProfissionalActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.competencias.NovaCompetenciaActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.competencias.CompetenciasActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.formacao.NovaFormacaoAcademicaActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.formacao.FormacoesAcademicaActivity" />
+        <activity android:name=".interessado.ui.meu_perfil.ui.EditarSobreInteressadoActivity" />
+        <activity
+            android:name=".interessado.InteressadoMainActivity"
+            android:label="@string/title_activity_interessado_main" />
+        <activity
+            android:name=".empresa.CadastrarOportunidadesActivity"
+            android:label="@string/title_activity_cadastrar_oportunidades"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".empresa.CompleteRegisterCompanyActivity" />
+        <activity
+            android:name=".empresa.MainCompanyActivity"
+            android:label="@string/title_activity_main_company" />
+        <activity android:name=".usuario.activits.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".usuario.activits.CadastrarUsuarioActivity" />
+        <activity android:name=".interessado.MainActivity" />
+    </application>
+
+</manifest>

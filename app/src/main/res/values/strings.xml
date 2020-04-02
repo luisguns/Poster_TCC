@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Poster</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_company">MainCompanyActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_minha_empresa">Minha Empresa</string>
+    <string name="telefone">Telefone</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="nome_da_empresa">Nome da empresa</string>
+    <string name="concluir">Concluir</string>
+    <string name="title_activity_cadastrar_oportunidades">CadastrarOportunidadesActivity</string>
+    <string name="title_activity_interessado_main">InteressadoMainActivity</string>
+    <string name="select_picture_title">Imagem de perfil</string>
+</resources>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".empresa.ui.minha_empresa.ui.AboutCompanyTabFragment">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descrição"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uma descrição com no minimo 100 caracters da empresa" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="18dp">
+
+            <TextView
+                android:id="@+id/about_company_tab_site_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Site" />
+
+            <TextView
+                android:id="@+id/about_company_tab_site"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:text="mysite"/>
+
+
+            <TextView
+                android:id="@+id/about_company_tab_setor_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="11dp"
+                android:layout_below="@id/about_company_tab_site"
+                android:text="Setor" />
+
+            <TextView
+                android:id="@+id/about_company_tab_setor"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_below="@id/about_company_tab_site"
+                android:layout_marginTop="11dp"
+                android:text="Desenvolvimento de sotware"/>
+
+
+            <TextView
+                android:id="@+id/about_company_tab_telefone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_marginTop="11dp"
+                android:layout_below="@id/about_company_tab_setor"
+                android:text="Telefone" />
+
+            <TextView
+                android:id="@+id/about_company_tab_telefone"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_below="@id/about_company_tab_setor"
+                android:layout_marginTop="11dp"
+                android:text="899944666565"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

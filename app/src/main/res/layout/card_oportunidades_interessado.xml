@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/card_oportunidade_interessado"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp">
+
+
+            <ImageView
+                android:id="@+id/card_oportunidade_img_empresa"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/work_icon_foreground"
+                android:padding="10dp"
+                android:background="#838383"
+                />
+
+            <TextView
+                android:id="@+id/card_oportunidade_title_vaga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/card_oportunidade_img_empresa"
+                android:text="Instituto federal do Piaui"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:textSize="16sp"
+                android:textColor="@color/no_image_background"
+                />
+
+            <TextView
+                android:id="@+id/card_oportunidade_descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/card_oportunidade_img_empresa"
+                android:layout_below="@id/card_oportunidade_title_vaga"
+                android:layout_marginLeft="16dp"
+                android:text="Descrição da vaga de emprego" />
+
+            <TextView
+                android:id="@+id/card_oportunidade_categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_oportunidade_descricao"
+                android:layout_toRightOf="@id/card_oportunidade_img_empresa"
+                 android:layout_marginLeft="16dp"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:text="Categoria: T.I" />
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

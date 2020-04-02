@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_oportunidades"
+        android:icon="@mipmap/icon_curriculos"
+        android:title="Curriculos"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/navigation_intereseds"
+        android:icon="@mipmap/icon_interessados"
+        android:title="Interessados"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/navigation_my_company"
+        android:icon="@mipmap/icon_building"
+        android:title="@string/title_minha_empresa"
+        app:showAsAction="always|withText" />
+
+
+</menu>

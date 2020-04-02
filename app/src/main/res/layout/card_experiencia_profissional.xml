@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="9dp">
+
+            <ImageView
+                android:id="@+id/card_experiencia_img_empresa"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/no_image_background"
+                android:padding="8dp"
+                android:tint="@android:color/white"
+                app:srcCompat="@mipmap/icon_building"
+                />
+
+            <TextView
+                android:id="@+id/card_experiencia_cargo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analista e desenvolvedor de sistemas"
+                android:layout_toRightOf="@id/card_experiencia_img_empresa"
+                android:textColor="#757575"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/card_experiencia_empresa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/card_experiencia_img_empresa"
+
+                android:layout_below="@id/card_experiencia_cargo"
+                android:text="Banco do brasil"
+                />
+
+            <TextView
+                android:id="@+id/card_experiencia_data_inicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_experiencia_empresa"
+                android:layout_toRightOf="@id/card_experiencia_img_empresa"
+
+                android:text="2017 a 2020"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/card_experiencia_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_experiencia_img_empresa"
+                android:layout_marginTop="8dp"
+                android:text="Uma desrição do que foi feito durante o tempo na empresa e qual suas funçoes"
+                />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

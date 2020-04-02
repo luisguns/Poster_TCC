@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="16dp">
+
+
+            <TextView
+                android:id="@+id/formacao_academica_card_nome_instituicao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Instituto federal do piaui - Campus picos"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/formacao_academica_card_nome_curso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/formacao_academica_card_nome_instituicao"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Analise e desenvolvimento de sistemas" />
+
+            <TextView
+                android:id="@+id/formacao_academica_card_conclusao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/formacao_academica_card_nome_curso"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
+                android:text="Termina em 2020" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
