@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.tcc.luis.poster.R;
 import com.tcc.luis.poster.helpers.Constantes;
@@ -45,7 +46,7 @@ public class OportunidadesAdapter extends RecyclerView.Adapter<OportunidadesAdap
     public void onBindViewHolder(@NonNull OportunidadeViewHolder holder, int position) {
         OportunidadeDeEmprego oportunidadeDeEmprego = jobs.get(position);
         if((!oportunidadeDeEmprego.getEmpresa().getImagemLogo().isEmpty())){
-            Picasso.with(activity).load(Uri.parse(oportunidadeDeEmprego.getEmpresa().getImagemLogo())).into(holder.mImgOportunidade);
+            Picasso.with(activity).load(Uri.parse(oportunidadeDeEmprego.getEmpresa().getImagemLogo())).networkPolicy(NetworkPolicy.OFFLINE).resize(512,512).centerCrop().into(holder.mImgOportunidade);
         }
         holder.mTxtTitle.setText(oportunidadeDeEmprego.getCargo());
         holder.mTxtCategoria.setText(jobs.get(position).getCategoria());

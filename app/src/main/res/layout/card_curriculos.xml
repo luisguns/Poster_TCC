@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_curriculos"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/card_curriculos_img"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@color/no_image_background"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="11dp"
+                app:srcCompat="@drawable/person_icon_foreground" />
+
+            <TextView
+                android:id="@+id/card_curriculos_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/card_curriculos_img"
+                android:textStyle="bold"
+                android:text="Luis Gustavo" />
+
+            <TextView
+                android:id="@+id/card_curriculos_ocupacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_curriculos_nome"
+                android:layout_toRightOf="@id/card_curriculos_img"
+                android:layout_marginTop="4dp"
+                android:text="Instituto federal do piaui" />
+
+            <TextView
+                android:id="@+id/card_curriculos_descricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_below="@+id/card_curriculos_ocupacao"
+                android:layout_toRightOf="@id/card_curriculos_img"
+                android:text="Aluno do IFPI integrante da fábrica escola de software mambee, desenvolvedor Mobile" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

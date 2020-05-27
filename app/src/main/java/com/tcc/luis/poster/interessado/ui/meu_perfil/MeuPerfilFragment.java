@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -63,6 +65,7 @@ public class MeuPerfilFragment extends Fragment {
 
     private ConstraintLayout mContainerViews;
     private ProgressBar mProgressGeral;
+    private Button mEnviarEmail;
 
     private TextView mTxtName;
     private TextView mTxtSobre;
@@ -96,17 +99,32 @@ public class MeuPerfilFragment extends Fragment {
         setHasOptionsMenu(true);
         initViews(v);
         aplyListens();
+        mEnviarEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                intent.setData(Uri.parse("mailto:" + mTxtEmail.getText().toString()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "VAGA DE EMPROGO DO POSTER");
+                startActivity(intent);
+            }
+        });
+
         Bundle bd = getArguments();
         if (bd != null) {
             String interessadoKey = bd.getString(Constantes.INTERESSADO_KEY);
             if(interessadoKey != null){
                 actualUser = interessadoKey;
+                mEnviarEmail.setVisibility(View.VISIBLE);
                 dimissAllViews(ownerViews);
             } else {
+                mEnviarEmail.setVisibility(View.GONE);
                 actualUser = firebaseAuth.getCurrentUser().getUid();
             }
 
         } else {
+            mEnviarEmail.setVisibility(View.GONE);
             actualUser = firebaseAuth.getCurrentUser().getUid();
         }
         return v;
@@ -115,6 +133,7 @@ public class MeuPerfilFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ProgressHelper.show(mProgressGeral, mContainerViews, true);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -153,7 +172,7 @@ public class MeuPerfilFragment extends Fragment {
         }
 
         if (usuario.getEmail() != null) {
-            mTxtEmail.setText("Email: " + usuario.getEmail());
+            mTxtEmail.setText(usuario.getEmail());
         }
     }
 
@@ -179,14 +198,12 @@ public class MeuPerfilFragment extends Fragment {
             @Override
             public void onError() {
                 img.setVisibility(View.GONE);
+                ProgressHelper.show(mProgressImgPerfil, null, false);
             }
         });
         ;
     }
-
-
     private void findUser() {
-        ProgressHelper.show(mProgressImgPerfil, null, true);
         firebaseFirestore.collection(Constantes.TABELA_DATABASE_USUARIO)
                 .document(actualUser)
                 .get()
@@ -202,7 +219,6 @@ public class MeuPerfilFragment extends Fragment {
     }
 
     private void findCurriculo() {
-        ProgressHelper.show(mProgressGeral, mContainerViews, true);
         firebaseFirestore.collection(Constantes.TABELA_DATABASE_CURRICULO).document(actualUser)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -212,7 +228,6 @@ public class MeuPerfilFragment extends Fragment {
                     if (curriculo != null) {
                         loadViewsWIthCurriculo();
                     }
-
                 }
             }
         });
@@ -251,8 +266,6 @@ public class MeuPerfilFragment extends Fragment {
         ExperienciaProfissionalAdapter adapter = new ExperienciaProfissionalAdapter(experiencias, getActivity(), false);
         mRvExperiencias.setAdapter(adapter);
         mRvExperiencias.setNestedScrollingEnabled(false);
-
-
     }
 
     private void loadRecyclerViewCompetencias(List<Competencia> competencias) {
@@ -319,7 +332,9 @@ public class MeuPerfilFragment extends Fragment {
         mTxtVerMaisCompetencia = v.findViewById(R.id.meu_perfil_competencia_ver_mais);
         mTxtVerMaisExperiencia = v.findViewById(R.id.meu_perfil_experiencia_ver_mais);
 
-        ownerViews.addAll(Arrays.asList(mImgEditAcademic,mImgEditCompetencia, mImgEditExperiencia,mImgEditPerfil));
+        mEnviarEmail = v.findViewById(R.id.meu_perfil_enviar_email);
+
+
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -345,6 +360,7 @@ public class MeuPerfilFragment extends Fragment {
         mRvFormacoes.setLayoutManager(llm);
         mRvCompetencias.setLayoutManager(llm2);
         mRvExperiencias.setLayoutManager(llm3);
+        ownerViews.addAll(Arrays.asList(mImgEditAcademic,mImgEditCompetencia, mImgEditExperiencia,mImgEditPerfil));
 
 
     }
@@ -352,7 +368,6 @@ public class MeuPerfilFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.option_menu_company, menu);
-
     }
 
     @Override

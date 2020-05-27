@@ -9,7 +9,7 @@
         android:id="@+id/navigation_oportunidades"
         android:name="com.tcc.luis.poster.empresa.ui.curriculos.CurriculoFragment"
         android:label="Curriculos"
-        tools:layout="@layout/fragment_dashboard_company" />
+        tools:layout="@layout/fragment_curriculos_company" />
 
     <fragment
         android:id="@+id/navigation_intereseds"

@@ -1,15 +1,35 @@
 package com.tcc.luis.poster.model;
 
+import java.util.HashMap;
+
 public class Empresa {
 
     private String imagemLogo;
     private String representanteId;
     private String setor;
+    private String site;
     private String nome;
     private String cnpj;
     private String slogan;
     private Endereco endereco;
     private String telefone;
+    private String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
 
     public String getSlogan() {
         return slogan;
@@ -78,5 +98,16 @@ public class Empresa {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public HashMap<String, Object> toMap(){
+        HashMap<String, Object> hm = new HashMap<>();
+        hm.put("nome", nome);
+        hm.put("descricao", descricao);
+        hm.put("setor", setor);
+        hm.put("site", site);
+        hm.put("telefone", telefone);
+        hm.put("slogan", slogan);
+        return hm;
     }
 }

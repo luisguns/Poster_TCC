@@ -38,6 +38,8 @@ import com.tcc.luis.poster.helpers.Constantes;
 import com.tcc.luis.poster.helpers.ImageHelper;
 import com.tcc.luis.poster.helpers.ProgressHelper;
 import com.tcc.luis.poster.helpers.SnackBarHelper;
+import com.tcc.luis.poster.interessado.InteressadoMainActivity;
+import com.tcc.luis.poster.model.Interessado;
 import com.tcc.luis.poster.model.Usuario;
 
 import java.io.File;

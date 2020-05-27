@@ -155,6 +155,7 @@ public class MinhaEmpresaFragment extends Fragment {
             }
         }
         mTxtNomeEmpresa.setText(empresa.getNome());
+        mTxtSlogan.setText(empresa.getSlogan());
         ProgressHelper.show(mProgressImgProfile,null,false);
 
     }

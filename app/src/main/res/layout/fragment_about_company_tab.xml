@@ -35,9 +35,10 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/about_company_text_descrcicao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Uma descrição com no minimo 100 caracters da empresa" />
+                />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -73,8 +74,7 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="200dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:text="mysite"/>
+                android:layout_marginRight="15dp" />
 
 
             <TextView
@@ -94,8 +94,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:layout_below="@id/about_company_tab_site"
-                android:layout_marginTop="11dp"
-                android:text="Desenvolvimento de sotware"/>
+                android:layout_marginTop="11dp"/>
 
 
             <TextView
@@ -115,8 +114,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:layout_below="@id/about_company_tab_setor"
-                android:layout_marginTop="11dp"
-                android:text="899944666565"/>
+                android:layout_marginTop="11dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

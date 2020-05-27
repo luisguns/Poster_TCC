@@ -17,7 +17,8 @@ public class DetalhesInteressadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_interessado);
-
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String keyInteressado = getIntent().getExtras().getString(Constantes.INTERESSADO_KEY);
 
         if (keyInteressado != null) {
@@ -34,5 +35,11 @@ public class DetalhesInteressadoActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

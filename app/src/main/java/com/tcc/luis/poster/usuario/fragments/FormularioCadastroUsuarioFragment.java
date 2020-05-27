@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -65,6 +66,7 @@ public class FormularioCadastroUsuarioFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private Switch mSwtCompanyRepresentative;
     private View v;
+    private boolean isRepresentative;
 
     public FormularioCadastroUsuarioFragment() {
         // Required empty public constructor
@@ -79,6 +81,16 @@ public class FormularioCadastroUsuarioFragment extends Fragment {
 
         initView();
 
+        mSwtCompanyRepresentative.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    isRepresentative = true;
+                } else {
+                    isRepresentative = false;
+                }
+            }
+        });
 
 
         return v;
@@ -147,12 +159,14 @@ public class FormularioCadastroUsuarioFragment extends Fragment {
     private void saveFirebase(Usuario user, final ProgressBar pb) {
         HashMap<String, String> map = new HashMap<>();
         map.put("uidUsuario", firebaseAuth.getCurrentUser().getUid());
-        firebaseFirestore
-                .collection(Constantes.TABELA_DATABASE_CURRICULO)
-                .document(firebaseAuth.getCurrentUser().getUid())
-                .set(map);
+        map.put("profileImage", user.getProfileImage() != null ? user.getProfileImage() : "");
 
-
+        if(!user.isCompanyRepresentative()){
+            firebaseFirestore
+                    .collection(Constantes.TABELA_DATABASE_CURRICULO)
+                    .document(firebaseAuth.getCurrentUser().getUid())
+                    .set(map);
+        }
         firebaseFirestore.collection(Constantes.TABELA_DATABASE_USUARIO)
                 .document(user.getUidUser())
                 .set(user)
@@ -186,6 +200,7 @@ public class FormularioCadastroUsuarioFragment extends Fragment {
         mUsuario.setProfileImage(mUsuario.getProfileImage() != null ? mUsuario.getProfileImage() : "");
         mUsuario.setName(mInpName.getEditText().getText().toString());
         mUsuario.setLastName(mInpLastName.getEditText().getText().toString());
+        mUsuario.setCompanyRepresentative(isRepresentative);
         return this.mUsuario;
     }
 

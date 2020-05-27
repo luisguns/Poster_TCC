@@ -50,7 +50,8 @@ public class DetalhesOportunidadeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_oportunidade);
         final String oportunidadeId = getIntent().getExtras().getString(Constantes.OPORTUNIDADE_KEY);
-
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(oportunidadeId != null){
             this.firebaseFirestorager = FirebaseFirestore.getInstance();
             loadViews();
@@ -174,5 +175,12 @@ public class DetalhesOportunidadeActivity extends AppCompatActivity {
         mLayout = findViewById(R.id.layout_activity_detalhes_oportunidade);
         mImgEmpresa.setVisibility(View.GONE);
 
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
