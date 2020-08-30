@@ -146,6 +146,8 @@ public class CadastrarUsuarioFragment extends Fragment {
                     }
                 } catch (ApiException e){
                     e.printStackTrace();
+                    Log.e(TAG, "onActivityResult: " + e.getMessage());
+                    Log.e(TAG, "onActivityResult: " + e.getLocalizedMessage());
                 }
             }
     }

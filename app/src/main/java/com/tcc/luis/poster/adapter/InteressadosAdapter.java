@@ -56,6 +56,7 @@ public class InteressadosAdapter extends RecyclerView.Adapter<InteressadosAdapte
                 Intent irDetailInteressado = new Intent(activity, DetalhesInteressadoActivity.class);
                 irDetailInteressado.putExtra(Constantes.INTERESSADO_KEY,interessados.get(position).getIdInteressado());
                 activity.startActivity(irDetailInteressado);
+                activity.finish();
             }
         });
 
